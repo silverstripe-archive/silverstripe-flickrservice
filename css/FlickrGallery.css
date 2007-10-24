@@ -1,0 +1,45 @@
+
+.pages{
+	float:left;
+	width: 100%;
+}
+.paginator{
+	font-size : 12px;
+	margin:10px auto;
+	padding-top : 10px;
+}
+
+.paginator a, .currentPage{
+	background : #FFFFFF none repeat scroll 0%;
+	border : 1px solid #DDDDDD;
+	padding: 2px 6px;
+	margin: 2px;
+	text-decoration: none;
+}
+
+.paginator a:hover{
+	text-decoration: none;
+	background: #efecec;
+}
+
+.currentPage{
+	color: #e31212;
+	font-weight: bold;
+}
+
+.results{
+	color: #bdb6b6;
+	margin: 10px auto;
+}
+
+.prev, .next{margin: 0pt 5px;}
+
+.flickr img{
+	border:none;
+	padding: 2pt;
+}
+.metablogPost{
+	margin:5em; 
+	padding:2em; 
+	border-bottom:#CCC solid 1px
+}
