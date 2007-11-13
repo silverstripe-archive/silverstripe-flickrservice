@@ -10,7 +10,7 @@ class FlickrGallery extends Page {
    	"Tags" => "Varchar(200)"
    );
    
-  static $icon = "mashups/images/treeicons/flickr";
+  static $icon = "flickrservice/images/treeicons/flickr";
  
    // add custom fields for this flickr gallery page
    function getCMSFields($cms) {
@@ -62,8 +62,8 @@ class FlickrGallery_Controller extends Page_Controller {
       Requirements::javascript("jsparty/prototype.js");
       //Requirements::javascript("jsparty/scriptaculous/scriptaculous.js");
       Requirements::javascript("jsparty/scriptaculous/effects.js");
-      Requirements::javascript("mashups/javascript/lightbox.js");
-      Requirements::css("mashups/css/lightbox.css");
+      Requirements::javascript("flickrservice/javascript/lightbox.js");
+      Requirements::css("flickrservice/css/lightbox.css");
       
       parent::init();	
    }
