@@ -7,8 +7,9 @@ class FlickrService extends RestfulService {
 	private static $api_key;
 	
 	function __construct(){
-		$this->baseURL = 'http://www.flickr.com/services/rest/';
+		parent::__construct('http://www.flickr.com/services/rest/');
 		$this->checkErrors = true;
+		//$this->cache_expire = 60*180;  //set the cache expiry
 	}
 	
 	/*
