@@ -67,7 +67,7 @@ class FlickrWidget extends Widget {
 			new TextField("User", "User"),
 			new TextField("PhotoSet", "Photo Set"),
 			new TextField("Tags", "Tags"),
-			new NumericField("NumberToShow", "Number to Show")
+			new NumericField("NumberToShow", "Number of photos")
 		);
 	}
 }

@@ -1,0 +1,29 @@
+	#lightwindow_previous { 
+		float: left;
+		left: 0px;
+		position: static;
+		top: 0px;
+		/*left: -63px;*/
+		height: 80%;
+		background: url(../images/lightwindow/translabel.gif) left 15% no-repeat;
+	}
+
+	#lightwindow_next { 
+		float: right;
+		right: 0px;
+		position: static;
+		top: 0px;
+		/*right: -63px;*/
+		height: 80%;
+		background: url(../images/lightwindow/translabel.gif) right 15% no-repeat;
+	}
+	
+	#lightwindow_previous:hover, 
+	#lightwindow_previous:active { 
+		background: url(../images/lightwindow/prevlabel.gif) left 15% no-repeat;
+	}
+
+	#lightwindow_next:hover, 
+	#lightwindow_next:active { 
+		background: url(../images/lightwindow/nextlabel.gif) right 15% no-repeat;
+	}
