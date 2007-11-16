@@ -15,7 +15,7 @@ class FlickrGallery extends Page {
    static $defaults = array(
 		"Method" => 2,
 		"NumberToShow" => 20,
-		//"Sortby" => "date-posted-desc"
+		"Sortby" => "date-posted-desc"
 	);
    
   static $icon = "flickrservice/images/flickr";
@@ -58,7 +58,7 @@ class FlickrGallery extends Page {
 		//Debug::show($photos);
 		$photoHTML = "<div class='flickr' style='float:left'>";
 		foreach($photos->PhotoItems as $photo)
-			$photoHTML .=  '<a href="http://farm1.static.flickr.com/'.$photo->image_path . '.jpg" class="lightwindow" rel="$JSMedia" title="'.htmlentities($photo->title).'"><img src="http://farm1.static.flickr.com/'.$photo->image_path.'_s.jpg" alt="'.htmlentities($photo->title).'"/></a>';
+			$photoHTML .=  '<a href="http://farm1.static.flickr.com/'.$photo->image_path . '.jpg" class="lightwindow" title="'.htmlentities($photo->title).'"><img src="http://farm1.static.flickr.com/'.$photo->image_path.'_s.jpg" alt="'.htmlentities($photo->title).'"/></a>';
 		
 		$photoHTML .= "</div>";
 		
