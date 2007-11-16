@@ -18,12 +18,14 @@ gallery
 
 2. Run /db/build/
 
-3. The CMS should now have a new "FlickrGallery" page type.
+3.  Apply for an API key from http://www.flickr.com/services/api/keys/apply/ and change the key in flickrservice/_config.php 
+
+4. The CMS should now have a new "FlickrGallery" page type.
    Create a page and set the parameters correctly on 'Photos' tab
 
-4. If you have blog module installed, this you could use the FlickrWidget which comes with this module.
+5. If you have blog module installed, this you could use the FlickrWidget which comes with this module.
 
-5. Add these and visit your public site to reflect the changes
+6. Add these and visit your public site to reflect the changes
 
 :: NOTE ::
 If you are still using deprecated all-in-one mashups module, please remove it before installing this. All other functionalities which were available in mashups module are now available in separate modules. Check - YoutubeService, MetablogService.
