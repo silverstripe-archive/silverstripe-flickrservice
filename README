@@ -1,0 +1,34 @@
+16 November 2007
+
+This is v0.2.0 of FlickrService module.
+
+You can find the documentation at : http://doc.silverstripe.com/doku.php?id=modules:flickrservice
+
+To install :
+
+1. Place this directory in the root of your SilverStripe installation
+I.e. you will now have the following root folders
+
+assets
+mysite
+cms
+jsparty
+sapphire
+gallery
+
+2. Run /db/build/
+
+3. The CMS should now have a new "FlickrGallery" page type.
+   Create a page and set the parameters correctly on 'Photos' tab
+
+4. If you have blog module installed, this you could use the FlickrWidget which comes with this module.
+
+5. Add these and visit your public site to reflect the changes
+
+:: NOTE ::
+If you are still using deprecated all-in-one mashups module, please remove it before installing this. All other functionalities which were available in mashups module are now available in separate modules. Check - YoutubeService, MetablogService.
+
+Please raise issues, bugs, contributions in the silverstripe.com forum...
+
+lakshan@silverstripe.com
+
