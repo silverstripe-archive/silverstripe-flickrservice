@@ -25,6 +25,7 @@ Behaviour.register({
 					case '3':
 						Element.toggle(widgetFields[1]);
 						Element.toggle(widgetFields[3]);
+						Element.disable(widgetFields[5])
 						break;
 				
 				}

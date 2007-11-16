@@ -32,13 +32,14 @@ class FlickrService extends RestfulService {
 		return self::$api_key;
 	}
 	
-	function getPhotos($tags=NULL,$user_id="",$per_page=500, $page=1){
+	function getPhotos($tags=NULL,$user_id="",$per_page=500, $page=1, $sort="date-posted-desc"){
 		$params = array(
 			'method' => 'flickr.photos.search',
 			'tags' => $tags,
 			'user_id' => $user_id == "" ? "" : $this->User($user_id),
 			'per_page' => $per_page,
 			'page' => $page,
+			'sort' => $sort,
 			'api_key' => $this->getAPIKey()
 			);
 		

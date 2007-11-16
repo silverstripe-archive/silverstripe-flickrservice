@@ -8,12 +8,14 @@ class FlickrGallery extends Page {
    	"Method" => "Int",
    	"Photoset" => "Varchar",
    	"NumberToShow" => "Int",
-   	"Tags" => "Varchar(200)"
+   	"Tags" => "Varchar(200)",
+   	"Sortby" => "Varchar"
    );
    
    static $defaults = array(
 		"Method" => 2,
-		"NumberToShow" => 20
+		"NumberToShow" => 20,
+		//"Sortby" => "date-posted-desc"
 	);
    
   static $icon = "flickrservice/images/flickr";
@@ -31,6 +33,9 @@ class FlickrGallery extends Page {
       $fields->addFieldToTab("Root.Content.Photos", new TextField("Tags","Tags"));
       $fields->addFieldToTab("Root.Content.Photos", new TextField("Photoset","Photoset id"));
       $fields->addFieldToTab("Root.Content.Photos", new NumericField("NumberToShow","Photos per page", "20"));
+      $fields->addFieldToTab("Root.Content.Photos", new DropdownField("Sortby", "Sort by ", array(
+				'date-posted-desc' => 'Most recent',
+				'interestingness-desc' => 'Most interesting')));
       return $fields;
    }
    
@@ -40,10 +45,10 @@ class FlickrGallery extends Page {
 		
 		switch ($this->Method){
 			case 1:
-				$photos = $flickr->getPhotos($this->Tags, $this->User, $this->NumberToShow, $page);
+				$photos = $flickr->getPhotos($this->Tags, $this->User, $this->NumberToShow, $page, $this->Sortby);
 				break;
 			case 2:
-				$photos = $flickr->getPhotos($this->Tags, NULL, $this->NumberToShow, $page);
+				$photos = $flickr->getPhotos($this->Tags, NULL, $this->NumberToShow, $page, $this->Sortby);
 				break;
 			case 3:
 				$photos = $flickr->getPhotoSet($this->Photoset, $this->User, $this->NumberToShow, $page);
