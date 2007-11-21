@@ -2,10 +2,7 @@
 
 class FlickrWidget extends Widget {
 	static $db = array(
-		"Method" => "Int",
 		"User" => "Varchar",
-		"Photoset" => "Varchar",
-		"Tags" => "Varchar",
 		"NumberToShow" => "Int",
 		"Sortby" => "Varchar"
 	);
@@ -18,7 +15,7 @@ class FlickrWidget extends Widget {
 	
 	static $title = "Photos";
 	static $cmsTitle = "Flickr Photos";
-	static $description = "Shows Flickr photos.";
+	static $description = "Display your Flickr photos.";
 	
 	function Photos() {
 		Requirements::javascript( "flickrservice/javascript/prototype.js" );
@@ -38,26 +35,17 @@ class FlickrWidget extends Widget {
 		$flickr = new FlickrService();
 		
 		try {
-			switch ($this->Method){
-			case 1:
-				$photos = $flickr->getPhotos($this->Tags, $this->User, $this->NumberToShow, 1, $this->Sortby);
-				break;
-			case 2:
-				$photos = $flickr->getPhotos($this->Tags, NULL, $this->NumberToShow, 1, $this->Sortby);
-				break;
-			case 3:
-				$photos = $flickr->getPhotoSet($this->Photoset, $this->User, $this->NumberToShow, 1);
-				break;
-			}
-			
-		} catch(Exception $e) {
+		$photos = $flickr->getPhotos(NULL, $this->User, $this->NumberToShow, 1, $this->Sortby);			
+		
+		}
+		catch(Exception $e) {
 			return false;
 		}
 		
 		$output = new DataObjectSet();
 		foreach($photos->PhotoItems as $photo) {
 			$output->push(new ArrayData(array(
-				"Title" => $photo->title,
+				"Title" => htmlentities($photo->title),
 				"Link" => "http://farm1.static.flickr.com/" . $photo->image_path .".jpg",
 				"Image" => "http://farm1.static.flickr.com/" .$photo->image_path. "_s.jpg"
 			)));
@@ -67,16 +55,9 @@ class FlickrWidget extends Widget {
 	}
 
 	function getCMSFields() {
-	Requirements::javascript( 'flickrservice/javascript/FlickrWidget_CMS.js' );
 	
 		return new FieldSet(
-			new DropdownField("Method", "Select ", array(
-				'1' => 'Photos taken by',
-				'2' => 'Photos tagged with',
-				'3' => 'Photos from photoset')),
-			new TextField("User", "User"),
-			new TextField("PhotoSet", "Photo Set"),
-			new TextField("Tags", "Tags"),
+			new TextField("User", "Flickr username"),
 			new NumericField("NumberToShow", "Number of photos"),
 			new DropdownField("Sortby", "Sort by ", array(
 				'date-posted-desc' => 'Most recent',
