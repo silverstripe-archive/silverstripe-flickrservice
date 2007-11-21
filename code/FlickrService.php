@@ -6,6 +6,10 @@
 class FlickrService extends RestfulService {
 	private static $api_key;
 	
+	/**
+ 	* Creates a new FlickrService object.
+ 	* @param expiry - Set the cache expiry time or TTL of the response
+ 	*/
 	function __construct($expiry=NULL){
 		parent::__construct('http://www.flickr.com/services/rest/');
 		$this->checkErrors = true;
@@ -13,8 +17,9 @@ class FlickrService extends RestfulService {
 			$this->cache_expire = expiry;  //set the cache expiry
 	}
 	
-	/*
-	This will return API specific error messages.
+	/**
+	* This will return API specific error messages. 
+	* @param response - Response with the error message
 	*/
 	function errorCatch($response){
 		$err_msg = $this->getAttribute($response, "err", Null, "msg");
@@ -25,14 +30,29 @@ class FlickrService extends RestfulService {
 	 	return $response;
 	}
 	
+	/**
+	* Sets the Flickr API key 
+	* @param key - User defined flickr key
+	*/
 	static function setAPIKey($key){
 		self::$api_key = $key;
 	}
 	
+	/**
+	* Gets the Flickr API key
+	*/
 	function getAPIKey(){
 		return self::$api_key;
 	}
 	
+	/**
+	* Get Photos based on defined criteria 
+	* @param tags - Tags to retrive the photos from
+	* @param user_id - Flickr User ID of the person, whom you want to get the photos
+	* @param per_page - Photos per page. Defaults to flickr default 500
+	* @param page - Page to retrive
+	* @param sort - Sorting method. Deafults to date-posted-desc. The possible values are: date-posted-asc, date-posted-desc, date-taken-asc, date-taken-desc, interestingness-desc, interestingness-asc, and relevance. 
+	*/
 	function getPhotos($tags=NULL,$user_id="",$per_page=500, $page=1, $sort="date-posted-desc"){
 		$params = array(
 			'method' => 'flickr.photos.search',
@@ -59,6 +79,10 @@ class FlickrService extends RestfulService {
 		return $results;
 	}
 	
+	/**
+	* Retrives a Flickr User ID of based on the user's public name 
+	* @param username - Flickr's public name of the user
+	*/
 	function User($username){
 		$params = array(
 			'method' => 'flickr.people.findByUsername',
@@ -71,6 +95,10 @@ class FlickrService extends RestfulService {
 		return $result;
 	}
 	
+	/**
+	* Retrives the title of a photo 
+	* @param id - photo id
+	*/
 	function getPhotoTitle($id){
 		$params = array(
 			'method' => 'flickr.photos.getInfo',
@@ -83,6 +111,12 @@ class FlickrService extends RestfulService {
 		return $result;
 	}
 	
+	/**
+	* Retrives a Flickr photoset 
+	* @param id - Id of the photoset. Usually you can find from the photoset URL eg: http://www.flickr.com/photos/userid/sets/PHOTOSETID/
+	* @param per_page - Photos per page
+	* @param page - page to display
+	*/
 	function getPhotoSet($id, $user, $per_page=500, $page=1){
 		$params = array(
 			'method' => 'flickr.photosets.getPhotos',
@@ -112,6 +146,10 @@ class Photos extends ViewableData {
 	private $Pagelist;
 	private $TotalPhotos;
 	
+	/**
+	* Paginate the photo results 
+	* @param pagination
+	*/
 	function Paginate($pagination){
 	$current_url = Director::currentURLSegment();
 
@@ -155,10 +193,16 @@ class Photos extends ViewableData {
 		//return $pages;
 	}
 	
+	/**
+	* Returns the total photos found in query
+	*/
 	function getTotalPhotos(){
 		return $this->TotalPhotos;
 	}
 	
+	/**
+	* Returns the number of pages available
+	*/
 	function getPages(){
 		return $this->Pagelist;
 	}
@@ -176,6 +220,10 @@ class Photos extends ViewableData {
 		return "http://www.flickr.com/photos/{$params['owner']}/{$params['id']}";
 		}
 	
+	/**
+	* Create the static image URL of each photo returned. 
+	* @param results - returned flickr response
+	*/
 	function addImageUrl($results){
 		foreach($results as $result){
 			$urlinfo = array(
@@ -189,6 +237,11 @@ class Photos extends ViewableData {
 		}
 	}
 	
+	/**
+	* Create the URL of flickr page of each image returned 
+	* @param results - returned flickr response
+	* @param owner - Flickr ID of the owner of the photo
+	*/
 	function addImagePageUrl($results, $owner=""){
 		foreach($results as $result){
 			$urlinfo = array(
