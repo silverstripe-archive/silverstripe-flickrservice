@@ -1,6 +1,6 @@
 16 November 2007
 
-This is v0.2.0 of FlickrService module.
+This is v0.2.0 of FlickrService module. This module is maintained by Lakshan Perera (lakshan AT silverstripe.com)
 
 You can find the documentation at : http://doc.silverstripe.com/doku.php?id=modules:flickrservice
 
@@ -18,7 +18,9 @@ gallery
 
 2. Run /db/build/
 
-3.  Apply for an API key from http://www.flickr.com/services/api/keys/apply/ and change the key in flickrservice/_config.php 
+3.  Apply for an API key from http://www.flickr.com/services/api/keys/apply/ and add the following line to file - mysite/_config.php; 
+
+	FlickrService::setAPIKey('Your-API-KEY');
 
 4. The CMS should now have a new "FlickrGallery" page type.
    Create a page and set the parameters correctly on 'Photos' tab
@@ -30,7 +32,6 @@ gallery
 :: NOTE ::
 If you are still using deprecated all-in-one mashups module, please remove it before installing this. All other functionalities which were available in mashups module are now available in separate modules. Check - YoutubeService, MetablogService.
 
-Please raise issues, bugs, contributions in the silverstripe.com forum...
+Add the issues, bugs, contributions to the module on open.silverstripe.com (create a new ticket under this module).
 
-lakshan@silverstripe.com
-
+If you require any support on usage of the module ask it through the forum - http://www.silverstripe.com/extending-hacking-silverstripe-forum/
