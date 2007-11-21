@@ -11,10 +11,8 @@ class FlickrService extends RestfulService {
  	* @param expiry - Set the cache expiry time or TTL of the response
  	*/
 	function __construct($expiry=NULL){
-		parent::__construct('http://www.flickr.com/services/rest/');
+		parent::__construct('http://www.flickr.com/services/rest/', $expiry);
 		$this->checkErrors = true;
-		if($expiry)
-			$this->cache_expire = expiry;  //set the cache expiry
 	}
 	
 	/**
