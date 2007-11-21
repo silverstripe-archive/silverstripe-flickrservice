@@ -6,10 +6,11 @@
 class FlickrService extends RestfulService {
 	private static $api_key;
 	
-	function __construct(){
+	function __construct($expiry=NULL){
 		parent::__construct('http://www.flickr.com/services/rest/');
 		$this->checkErrors = true;
-		//$this->cache_expire = 60*180;  //set the cache expiry
+		if($expiry)
+			$this->cache_expire = expiry;  //set the cache expiry
 	}
 	
 	/*
