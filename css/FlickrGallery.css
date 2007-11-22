@@ -43,3 +43,8 @@
 	padding:2em; 
 	border-bottom:#CCC solid 1px
 }
+
+/* CSS for light window */
+#lightwindow_data_details {
+	display: none;
+	}

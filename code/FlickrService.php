@@ -78,7 +78,7 @@ class FlickrService extends RestfulService {
 				$results->Paginate($this->getAttributes($conn, 'photos'));
 					
 		$results->addImageUrl($results->PhotoItems);
-		$results->addImagePageUrl($results->PhotoItems); //gets individual image page url
+		$results->addImagePageUrl($results->PhotoItems, $user_id); //gets individual image page url
 		
 		//Debug::show($results->Pagination);
 		return $results;

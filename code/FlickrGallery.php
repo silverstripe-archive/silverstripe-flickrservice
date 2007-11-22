@@ -56,10 +56,12 @@ class FlickrGallery extends Page {
 			}
 			
 		//Debug::show($photos);
-		$photoHTML = "<div class='flickr' style='float:left'>";
-		foreach($photos->PhotoItems as $photo)
-			$photoHTML .=  '<a href="http://farm1.static.flickr.com/'.$photo->image_path . '.jpg" class="lightwindow" title="'.htmlentities($photo->title).'"><img src="http://farm1.static.flickr.com/'.$photo->image_path.'_s.jpg" alt="'.htmlentities($photo->title).'"/></a>';
 		
+		$photoHTML = "<div class='flickr' style='float:left'>";
+		foreach($photos->PhotoItems as $photo){
+			$caption = htmlentities("<a href='$photo->page_url'>View this in Flickr</a>");
+			$photoHTML .=  '<a href="http://farm1.static.flickr.com/'.$photo->image_path . '.jpg" class="lightwindow" title="'.htmlentities($photo->title).'" caption="'.$caption.'"><img src="http://farm1.static.flickr.com/'.$photo->image_path.'_s.jpg" alt="'.htmlentities($photo->title).'"/></a>';
+		}
 		$photoHTML .= "</div>";
 		
 	 if($photos->PhotoItems){
@@ -86,7 +88,7 @@ class FlickrGallery_Controller extends Page_Controller {
       Requirements::javascript( "flickrservice/javascript/prototype.js" );
 	  Requirements::javascript( "flickrservice/javascript/effects.js" );
 	  Requirements::javascript( "flickrservice/javascript/lightwindow.js" );
-      
+	
       Requirements::css("flickrservice/css/lightwindow.css");
       
       if( $pos = strpos( $_SERVER[ 'HTTP_USER_AGENT' ], 'MSIE' ) ) {
