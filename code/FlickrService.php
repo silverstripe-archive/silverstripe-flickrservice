@@ -23,7 +23,7 @@ class FlickrService extends RestfulService {
 		$err_msg = $this->getAttribute($response, "err", Null, "msg");
 	 if($err_msg)
 		//user_error("Flickr Service Error : $err_msg", E_USER_ERROR);
-	 	throw new Exception("Flickr Service Error : $err_msg");
+	 	user_error("Flickr Service Error : $err_msg");
 	 else
 	 	return $response;
 	}
