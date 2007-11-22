@@ -21,11 +21,18 @@ class FlickrService extends RestfulService {
 	*/
 	function errorCatch($response){
 		$err_msg = $this->getAttribute($response, "err", Null, "msg");
-	 if($err_msg)
-		//user_error("Flickr Service Error : $err_msg", E_USER_ERROR);
-	 	user_error("Flickr Service Error : $err_msg");
-	 else
+		$err_code = $this->getAttribute($response, "err", Null, "code");
+	 if($err_msg){
+	 	if($err_code == 100){
+	 		user_error("You need to set the Flickr API key so that your SilverStripe website is permitted to commnicate with Flickr.<br/>Get one at http://www.flickr.com/services/api/keys/apply/ and add the code to mysite/_config.php, e.g: <br/> FlickrService::setAPIKey('YOUR-KEY-HERE'); ", E_USER_ERROR);
+	 	}
+	 	else {
+	 		user_error("Flickr Service Error : $err_msg", E_USER_ERROR);
+	 		}
+	 	}
+	 else {
 	 	return $response;
+	 	}
 	}
 	
 	/**
