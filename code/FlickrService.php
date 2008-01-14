@@ -72,7 +72,7 @@ class FlickrService extends RestfulService {
 		$this->setQueryString($params);
 		$conn = $this->connect();
 		
-		$results = new Photos();
+		$results = new FlickrService_Photos();
 		$results->PhotoItems = $this->getAttributes($conn, 'photos', 'photo');	
 		if((int)$results->PhotoItems->Count() > 0)
 				$results->Paginate($this->getAttributes($conn, 'photos'));
@@ -133,7 +133,7 @@ class FlickrService extends RestfulService {
 		$this->setQueryString($params);
 		$conn = $this->connect();
 		
-		$results = new Photos();
+		$results = new FlickrService_Photos();
 		$results->PhotoItems = $this->getAttributes($conn, 'photoset', 'photo');	
 		if((int)$results->PhotoItems->Count() > 0)
 			$results->Paginate($this->getAttributes($conn, 'photoset'));
@@ -146,7 +146,7 @@ class FlickrService extends RestfulService {
 		
 }
 
-class Photos extends ViewableData {
+class FlickrService_Photos extends ViewableData {
 	public $Photolist;
 	private $Pagelist;
 	private $TotalPhotos;
