@@ -5,6 +5,7 @@ class FlickrGallery extends Page {
    // define your database fields here - for example we have author
    static $db = array(
    	"User" => "Varchar",
+   	"GroupID" => "Varchar", // This is the group ID, not the group NAME. It's in the format 377682@N20
    	"Method" => "Int",
    	"Photoset" => "Varchar",
    	"NumberToShow" => "Int",
@@ -28,8 +29,11 @@ class FlickrGallery extends Page {
       $fields->addFieldToTab("Root.Content.Photos", new DropdownField("Method", "Select ", array(
 				'1' => 'Photos taken by',
 				'2' => 'Photos tagged with',
-				'3' => 'Photos from photoset')));
+				'3' => 'Photos from photoset',
+				'4' => 'Photos from group'
+	  )));
       $fields->addFieldToTab("Root.Content.Photos", new TextField("User","Flickr User"));
+      $fields->addFieldToTab("Root.Content.Photos", new TextField("GroupID", "Group ID (see documentation for help)"));
       $fields->addFieldToTab("Root.Content.Photos", new TextField("Tags","Tags"));
       $fields->addFieldToTab("Root.Content.Photos", new TextField("Photoset","Photoset id"));
       $fields->addFieldToTab("Root.Content.Photos", new NumericField("NumberToShow","Photos per page", "20"));
@@ -52,6 +56,9 @@ class FlickrGallery extends Page {
 				break;
 			case 3:
 				$photos = $flickr->getPhotoSet($this->Photoset, $this->User, $this->NumberToShow, $page);
+				break;
+			case 4:
+				$photos = $flickr->getPhotosFromGroupPool($this->GroupID, $this->Tags, $this->User, $this->NumberToShow, $page, $this->SortBy);
 				break;
 			}
 			

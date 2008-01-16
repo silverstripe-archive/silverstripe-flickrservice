@@ -143,6 +143,43 @@ class FlickrService extends RestfulService {
 		
 		return $results;
 	}
+	
+	/**
+	 * Retrieves the photos posted to a groups photo pool
+	 * 
+	 * @param int $groupID The group ID to get the photos from
+	 * @param string $tags The tags to narrow the number of results returned
+	 * @param string $username The username that all photos must belong to
+	 * @param int $per_page The number of photos to show per page
+	 * @param int $page The page to display right now
+	 * @param string $sort_by Sorting method.
+	 */
+	function getPhotosFromGroupPool($groupID, $tags, $username, $per_page, $page, $sort_by) {
+		$params = array(
+			"method" => "flickr.groups.pools.getPhotos",
+			"group_id" => $groupID,
+			"user_id" => $username == "" ? "" : $this->User($username),
+			"per_page" => (int)$per_page,
+			"page" => (int)$page,
+			"sort" => $sort_by,
+			"api_key" => $this->getAPIKey()
+		);
+		
+		$this->setQueryString($params);
+		$conn = $this->connect();
+		
+		$results = new FlickrService_Photos();
+		$results->PhotoItems = $this->getAttributes($conn, 'photos', 'photo');	
+
+		if((int)$results->PhotoItems->Count() > 0)
+				$results->Paginate($this->getAttributes($conn, 'photos'));
+					
+		$results->addImageUrl($results->PhotoItems);
+		$results->addImagePageUrl($results->PhotoItems, $username); //gets individual image page url
+		
+		//Debug::show($results->Pagination);
+		return $results;
+	}
 		
 }
 
@@ -177,6 +214,7 @@ class FlickrService_Photos extends ViewableData {
 		$end = $last_page < 10 ? $last_page : $start+10;
 		
 		for($i=$start; $i < $end ; $i++){
+			if($i >= ($last_page - 1)) continue;
 			$pagenum = $i + 1;
 			if($pagenum != $current_page){
 				$qs = http_build_query(array('page' => $pagenum));

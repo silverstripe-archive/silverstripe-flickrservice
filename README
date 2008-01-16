@@ -35,3 +35,14 @@ If you are still using deprecated all-in-one mashups module, please remove it be
 Add the issues, bugs, contributions to the module on open.silverstripe.com (create a new ticket under this module).
 
 If you require any support on usage of the module ask it through the forum - http://www.silverstripe.com/extending-hacking-silverstripe-forum/
+
+
++----------------------------------+
+|       FINDING THE GROUP ID       |
++----------------------------------+
+If you want to find the groups ID, browse to the group page (e.g. http://www.flickr.com/groups/facesinplaces).
+- If you're not yet part of the group, right click the 'Join this group' text on the right and select 'Properties'.
+- Otherwise, if you're a part of the group already, right click the 'Invite' link at the top (just under the group name) and select 'Properties'.
+
+- Copy the part out of the Address/URL field after the last '=' sign. (It will be something like 377682@N20)
+- Paste this into the Group ID field in the CMS.
