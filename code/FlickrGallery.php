@@ -85,27 +85,28 @@ class FlickrGallery extends Page {
 
 class FlickrGallery_Controller extends Page_Controller {
 	function init() {
-	if(Director::fileExists(project() . "/css/FlickrGallery.css")) {
-	   Requirements::css(project() . "/css/FlickrGallery.css");
-	} else {
-	   Requirements::css("flickrservice/css/FlickrGallery.css");
-	}
-	
-	Requirements::javascript( "flickrservice/javascript/prototype.js" );
-	  Requirements::javascript( "flickrservice/javascript/effects.js" );
-	  Requirements::javascript( "flickrservice/javascript/lightwindow.js" );
-	
-	Requirements::css("flickrservice/css/lightwindow.css");
-	
-	if( $pos = strpos( $_SERVER[ 'HTTP_USER_AGENT' ], 'MSIE' ) ) {
+		if(Director::fileExists(project() . "/css/FlickrGallery.css")) {
+		   Requirements::css(project() . "/css/FlickrGallery.css");
+		} else {
+		   Requirements::css("flickrservice/css/FlickrGallery.css");
+		}
+		
+		Requirements::javascript( "flickrservice/javascript/prototype.js" );
+		Requirements::javascript( "flickrservice/javascript/effects.js" );
+		Requirements::javascript( "flickrservice/javascript/lightwindow.js" );
+		
+		Requirements::css("flickrservice/css/lightwindow.css");
+		
+		// HACK
+		if($pos = strpos( $_SERVER[ 'HTTP_USER_AGENT' ], 'MSIE') ) {
 			$version = substr( $_SERVER[ 'HTTP_USER_AGENT' ], $pos + 5, 3 );
 			if( $version < 7 ) {
 					Requirements::css( "flickrservice/css/lightwindowIE6.css" );
 			}
 		}
-	
-	parent::init();	
-   }
+		
+		parent::init();	
+	}
    
    function Content(){
 			return $this->Content.$this->FlickrPhotos();
