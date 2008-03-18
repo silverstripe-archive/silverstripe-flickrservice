@@ -81,6 +81,8 @@ class FlickrGallery extends Page {
 		
 		return $photoHTML;
 	}
+	
+	
 }
 
 class FlickrGallery_Controller extends Page_Controller {
@@ -107,11 +109,10 @@ class FlickrGallery_Controller extends Page_Controller {
 		
 		parent::init();	
 	}
-   
-   function Content(){
-			return $this->Content.$this->FlickrPhotos();
-   }
+	
+	function Content() {
+		return $this->Content . $this->FlickrPhotos();
+	}
    
 }
-
 ?>
