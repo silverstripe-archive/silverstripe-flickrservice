@@ -70,7 +70,7 @@ class FlickrService extends RestfulService {
 			);
 		
 		$this->setQueryString($params);
-		$conn = $this->connect();
+		$conn = $this->connect('');
 		
 		$results = new FlickrService_Photos();
 		$results->PhotoItems = $this->getAttributes($conn, 'photos', 'photo');	
