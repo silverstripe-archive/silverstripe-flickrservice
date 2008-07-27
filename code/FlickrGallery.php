@@ -99,7 +99,6 @@ class FlickrGallery_Controller extends Page_Controller {
 		
 		Requirements::css("flickrservice/css/lightwindow.css");
 		
-		// HACK
 		if($pos = strpos( $_SERVER[ 'HTTP_USER_AGENT' ], 'MSIE') ) {
 			$version = substr( $_SERVER[ 'HTTP_USER_AGENT' ], $pos + 5, 3 );
 			if( $version < 7 ) {
