@@ -187,6 +187,14 @@ class FlickrService_Photos extends ViewableData {
 	public $Photolist;
 	private $Pagelist;
 	private $TotalPhotos;
+	protected $numPages = 1;
+	
+	/**
+	 * Return the number of pages in this paginated set
+	 */
+	function numPages() {
+		return $this->numPages;
+	}
 	
 	/**
 	* Paginate the photo results 
@@ -199,11 +207,12 @@ class FlickrService_Photos extends ViewableData {
 		$current_page = $page->getField('page');
 		$last_page = $page->getField('pages');
 		$this->TotalPhotos = $page->getField('total');
-		
+
+		$this->numPages = $page->getField('pages');		
 		
 		if($current_page > 1){
-			$qs = http_build_query(array('page' => $current_page - 1));
-			$this->Pagelist = "<a href='$current_url?$qs' class='prev'>&lt; Previous</a>";
+			$destPage = $current_page - 1;
+			$this->Pagelist = "<a href='{$current_url}page/$destPage' class='prev'>&lt; Previous</a>";
 		}
 		
 		if($current_page < 6)
@@ -217,8 +226,8 @@ class FlickrService_Photos extends ViewableData {
 			if($i >= ($last_page - 1)) continue;
 			$pagenum = $i + 1;
 			if($pagenum != $current_page){
-				$qs = http_build_query(array('page' => $pagenum));
-				$page_item = "<a href='$current_url?$qs'>$pagenum</a>";
+				$destPage = $pagenum;
+				$page_item = "<a href='{$current_url}page/$destPage'>$pagenum</a>";
 			}
 			else 
 				$page_item = "<span class='currentPage'>$pagenum</span>";
@@ -227,8 +236,8 @@ class FlickrService_Photos extends ViewableData {
 		}
 		
 		if ($current_page < $last_page){
-			$qs = http_build_query(array('page' => $current_page + 1));
-			$this->Pagelist .= "<a href='$current_url?$qs' class='next'>Next &gt;</a>";
+			$destPage = $current_page + 1;
+			$this->Pagelist .= "<a href='{$current_url}page/$destPage' class='next'>Next &gt;</a>";
 		}
 			
 		

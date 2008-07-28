@@ -43,10 +43,9 @@ class FlickrGallery extends Page {
 		return $fields;
    }
    
-   function FlickrPhotos(){
+	function getFlickrPage($page) {
 		$flickr = new FlickrService();
-		$page = isset($_GET['page'])? $_GET['page']: 1;
-		
+
 		switch ($this->Method){
 			case 1:
 				$photos = $flickr->getPhotos($this->Tags, $this->User, $this->NumberToShow, $page, $this->Sortby);
@@ -61,6 +60,12 @@ class FlickrGallery extends Page {
 				$photos = $flickr->getPhotosFromGroupPool($this->GroupID, $this->Tags, $this->User, $this->NumberToShow, $page, $this->SortBy);
 				break;
 		}
+		
+		return $photos;
+	}
+
+	function getFlickrPageHTML($page) {
+		$photos = $this->getFlickrPage($page);
 			
 		$photoHTML = "<div class='flickr' style='float:left'>";
 		foreach($photos->PhotoItems as $photo){
@@ -81,8 +86,20 @@ class FlickrGallery extends Page {
 		
 		return $photoHTML;
 	}
-	
-	
+
+	/**
+	 * Get a list of URLs to cache related to this page
+	 */
+	function subPagesToCache() {
+		$urls = parent::subPagesToCache();
+		$numPages = 16;
+		// To do: get this line working
+		//$numPages = $this->getFlickrPage(1)->numPages();
+		for($i=1;$i<=$numPages;$i++) {
+			$urls[] = $this->Link() . 'page/' . $i;
+		}
+		return $urls;
+	}
 }
 
 class FlickrGallery_Controller extends Page_Controller {
@@ -111,6 +128,15 @@ class FlickrGallery_Controller extends Page_Controller {
 	
 	function Content() {
 		return $this->Content . $this->FlickrPhotos();
+	}
+
+	function FlickrPhotos(){
+		return $this->getFlickrPageHTML($this->currentFlickrPage());
+	}
+	
+	function currentFlickrPage() {
+		if($this->action == 'page' && is_numeric($this->urlParams['ID'])) return $this->urlParams['ID'];
+		else return 1;
 	}
    
 }
