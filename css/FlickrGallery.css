@@ -17,6 +17,11 @@
 	text-decoration: none;
 }
 
+.PressReleaseHolder-bg .details .paginator a,
+.PressReleaseHolder-bg .details .paginator span {
+	float:left;
+}
+
 .paginator a:hover{
 	text-decoration: none;
 	background: #efecec;
