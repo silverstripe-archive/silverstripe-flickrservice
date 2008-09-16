@@ -1,8 +1,18 @@
+####################################################
+Flickrservice Moudle
+####################################################
+
 16 November 2007
 
-This is v0.2.0 of FlickrService module. This module is maintained by Lakshan Perera (lakshan AT silverstripe.com)
+# Maintainer Contact
+Matt Peel (Nickname: mpeel, mattSS)
+<matt (at) silverstripe (dot) com>
 
-You can find the documentation at : http://doc.silverstripe.com/doku.php?id=modules:flickrservice
+# Documentation
+http://doc.silverstripe.com/doku.php?id=modules:flickrservice
+
+# Installation Instructions
+This is v0.2.0 of FlickrService module. This module is maintained by Lakshan Perera (lakshan AT silverstripe.com)
 
 To install :
 
