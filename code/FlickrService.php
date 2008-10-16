@@ -70,17 +70,16 @@ class FlickrService extends RestfulService {
 			);
 		
 		$this->setQueryString($params);
-		$conn = $this->connect('');
+		$response = $this->request('');
 		
 		$results = new FlickrService_Photos();
-		$results->PhotoItems = $this->getAttributes($conn, 'photos', 'photo');	
+		$results->PhotoItems = $this->getAttributes($response->getBody(), 'photos', 'photo');	
 		if((int)$results->PhotoItems->Count() > 0)
-				$results->Paginate($this->getAttributes($conn, 'photos'));
+				$results->Paginate($this->getAttributes($response->getBody(), 'photos'));
 					
 		$results->addImageUrl($results->PhotoItems);
 		$results->addImagePageUrl($results->PhotoItems, $user_id); //gets individual image page url
 		
-		//Debug::show($results->Pagination);
 		return $results;
 	}
 	
@@ -95,8 +94,8 @@ class FlickrService extends RestfulService {
 			'api_key' => $this->getAPIKey()
 		);
 		$this->setQueryString($params);
-		$conn = $this->connect();
-		$result = $this->getAttribute($conn, 'user', NULL, 'nsid');
+		$response = $this->request('');
+		$result = $this->getAttribute($response->getBody(), 'user', NULL, 'nsid');
 		return $result;
 	}
 	
@@ -111,8 +110,8 @@ class FlickrService extends RestfulService {
 			'api_key' => $this->getAPIKey()
 		);
 		$this->setQueryString($params);
-		$conn = $this->connect();
-		$result = $this->getValue($conn, photo, title);
+		$response = $this->request('');
+		$result = $this->getValue($response->getBody(), photo, title);
 		return $result;
 	}
 	
@@ -131,12 +130,12 @@ class FlickrService extends RestfulService {
 			'api_key' => $this->getAPIKey()
 		);
 		$this->setQueryString($params);
-		$conn = $this->connect();
+		$response = $this->request();
 		
 		$results = new FlickrService_Photos();
-		$results->PhotoItems = $this->getAttributes($conn, 'photoset', 'photo');	
+		$results->PhotoItems = $this->getAttributes($response->getBody(), 'photoset', 'photo');	
 		if((int)$results->PhotoItems->Count() > 0)
-			$results->Paginate($this->getAttributes($conn, 'photoset'));
+			$results->Paginate($this->getAttributes($response->getBody(), 'photoset'));
 							
 		$results->addImageUrl($results->PhotoItems);
 		$results->addImagePageUrl($results->PhotoItems, $user); //gets individual image page url
@@ -166,18 +165,17 @@ class FlickrService extends RestfulService {
 		);
 		
 		$this->setQueryString($params);
-		$conn = $this->connect();
+		$response = $this->request();
 		
 		$results = new FlickrService_Photos();
-		$results->PhotoItems = $this->getAttributes($conn, 'photos', 'photo');	
+		$results->PhotoItems = $this->getAttributes($response->getBody(), 'photos', 'photo');	
 
 		if((int)$results->PhotoItems->Count() > 0)
-				$results->Paginate($this->getAttributes($conn, 'photos'));
+				$results->Paginate($this->getAttributes($response->getBody(), 'photos'));
 					
 		$results->addImageUrl($results->PhotoItems);
 		$results->addImagePageUrl($results->PhotoItems, $username); //gets individual image page url
 		
-		//Debug::show($results->Pagination);
 		return $results;
 	}
 		
@@ -201,7 +199,7 @@ class FlickrService_Photos extends ViewableData {
 	* @param pagination
 	*/
 	function Paginate($pagination){
-	$current_url = Director::currentURLSegment();
+	$current_url = Controller::curr()->Link();
 
 		foreach($pagination as $page)
 		$current_page = $page->getField('page');
