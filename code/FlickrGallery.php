@@ -134,6 +134,10 @@ class FlickrGallery_Controller extends Page_Controller {
 		return $this->getFlickrPageHTML($this->currentFlickrPage());
 	}
 	
+	function page() {
+		return array();
+	}
+	
 	function currentFlickrPage() {
 		if($this->action == 'page' && is_numeric($this->urlParams['ID'])) return $this->urlParams['ID'];
 		else return 1;
