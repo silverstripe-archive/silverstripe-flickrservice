@@ -13,9 +13,15 @@ class FlickrWidget extends Widget {
 		"Sortby" => "date-posted-desc"
 	);
 	
-	static $title = "Photos";
-	static $cmsTitle = "Flickr Photos";
-	static $description = "Display your Flickr photos.";
+	static $title;
+	static $cmsTitle;
+	static $description;
+	
+	function __construct() {
+		$title = _t('FlickrWidget.PHOTOS','Photos');
+		$cmsTitle = _t('FlickrWidget.FLICKRPHOTOS','Flickr Photos');
+		$description = _t('FlickrWidget.FLICKRPHOTOSDESCRIPTION','Display your Flickr photos.');
+	}
 	
 	function Photos() {
 		Requirements::javascript( "flickrservice/javascript/prototype.js" );
@@ -55,13 +61,12 @@ class FlickrWidget extends Widget {
 	}
 
 	function getCMSFields() {
-	
 		return new FieldSet(
-			new TextField("User", "Flickr username"),
-			new NumericField("NumberToShow", "Number of photos"),
-			new DropdownField("Sortby", "Sort by ", array(
-				'date-posted-desc' => 'Most recent',
-				'interestingness-desc' => 'Most interesting'))
+			new TextField("User",  _t('FlickrWidget.FLICKRUSERNAME','Flickr username')),
+			new NumericField("NumberToShow", _t('FlickrWidget.NUMBEROFPHOTOS','Number of photos')),
+			new DropdownField("Sortby", _t('FlickrGallery.SORTBY', 'Sort By'), array(
+				'date-posted-desc' =>  _t('FlickrGallery.MOSTRECENT', 'Most Recent'),
+				'interestingness-desc' => _t('FlickrGallery.MOSTINTERESTING', 'Most Interesting')))
 		);
 	}
 }

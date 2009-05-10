@@ -20,27 +20,26 @@ class FlickrGallery extends Page {
    
 	static $icon = "flickrservice/images/flickr";
  
-	// add custom fields for this flickr gallery page
-	function getCMSFields($cms) {
-		Requirements::javascript( 'flickrservice/javascript/FlickrGallery_CMS.js' );
-   	  
-		$fields = parent::getCMSFields($cms);
-		$fields->addFieldToTab("Root.Content.Photos", new DropdownField("Method", "Select ", array(
-				'1' => 'Photos taken by',
-				'2' => 'Photos tagged with',
-				'3' => 'Photos from photoset',
-				'4' => 'Photos from group'
-		)));
-		$fields->addFieldToTab("Root.Content.Photos", new TextField("User","Flickr User"));
-		$fields->addFieldToTab("Root.Content.Photos", new TextField("GroupID", "Group ID (see documentation for help)"));
-		$fields->addFieldToTab("Root.Content.Photos", new TextField("Tags","Tags"));
-		$fields->addFieldToTab("Root.Content.Photos", new TextField("Photoset","Photoset id"));
-		$fields->addFieldToTab("Root.Content.Photos", new NumericField("NumberToShow","Photos per page", "20"));
-		$fields->addFieldToTab("Root.Content.Photos", new DropdownField("Sortby", "Sort by ", array(
-				'date-posted-desc' => 'Most recent',
-				'interestingness-desc' => 'Most interesting')));
-	
-		return $fields;
+	/**
+	 * Add custom fields for this flickr gallery page
+	 *
+	 * @return FieldSet
+	 */
+	function getCMSFields() {
+ 
+		$fields = parent::getCMSFields();
+       	$fields->addFieldToTab("Root.Content.Photos", new DropdownField("Method", _t('FlickrGallery.SELECT','Select'), array(
+				'1' => _t('FlickrGallery.TAKENBY','Photos taken by'),
+				'2' => _t('FlickrGallery.TAGGEDWITH','Photos tagged with'),
+				'3' => _t('FlickrGallery.FROMPHOTOSET','Photos from photoset'))));
+		$fields->addFieldToTab("Root.Content.Photos", new TextField("User", _t('FlickrGallery.USER','Flickr User')));
+		$fields->addFieldToTab("Root.Content.Photos", new TextField("Tags", _t('FlickrGallery.TAGS','Tags')));
+		$fields->addFieldToTab("Root.Content.Photos", new TextField("Photoset", _t('FlickrGallery.PHOTOSET','Photoset id')));
+		$fields->addFieldToTab("Root.Content.Photos", new NumericField("NumberToShow",_t('FlickrGallery.PHOTOSPERPAGE','Photos per page'), "20"));
+		$fields->addFieldToTab("Root.Content.Photos", new DropdownField("Sortby", _t('FlickrGallery.SORTBY','Sort by'), array(
+			'date-posted-desc' => _t('FlickrGallery.MOSTRECENT','Most recent'),
+			'interestingness-desc' => _t('FlickrGallery.MOSTINTERESTING','Most interesting'))));
+        return $fields;
    }
    
 	function getFlickrPage($page) {
@@ -69,21 +68,19 @@ class FlickrGallery extends Page {
 			
 		$photoHTML = "<div class='flickr' style='float:left'>";
 		foreach($photos->PhotoItems as $photo){
-			$caption = htmlentities("<a href='$photo->page_url'>View this in Flickr</a>");
+			$caption = htmlentities("<a href='$photo->page_url'>" . _t('FlickrGallery.VIEWINFLICKR','View this in Flickr') . "</a>");
 			$photoHTML .=  '<a href="http://farm1.static.flickr.com/'.$photo->image_path . '.jpg" class="lightwindow" title="'.htmlentities($photo->title).'" caption="'.$caption.'"><img src="http://farm1.static.flickr.com/'.$photo->image_path.'_s.jpg" alt="'.htmlentities($photo->title).'"/></a>';
 		}
 		$photoHTML .= "</div>";
 		
-	 if($photos->PhotoItems){
-		$photoHTML .= "<div class='pages'><div class='paginator'>";
-		$photoHTML .= $photos->getPages();
-		$photoHTML .= "</div><span class='results'>(".$photos->getTotalPhotos()." Photos)</span></div>";
+		if($photos->PhotoItems){
+			$photoHTML .= "<div class='pages'><div class='paginator'>";
+			$photoHTML .= $photos->getPages();
+			$photoHTML .= "</div><span class='results'>". sprintf(_t('FlickrGallery.TOTALPHOTOS',"(%s Photos)"),$photos->getTotalPhotos()) ."</span></div>";
 		}
 		else {
-		
-		$photoHTML .= "<span>Sorry!  Gallery doesn't contain any images for this page.</span>";
+			$photoHTML .= "<span>" . _t('FlickrGallery.NOIMAGES','Sorry!  Gallery doesn\'t contain any images for this page.') . "</span>";
 		}
-		
 		return $photoHTML;
 	}
 

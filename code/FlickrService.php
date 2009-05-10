@@ -24,10 +24,10 @@ class FlickrService extends RestfulService {
 		$err_code = $this->getAttribute($response, "err", Null, "code");
 	 if($err_msg){
 	 	if($err_code == 100){
-	 		user_error("You need to set the Flickr API key so that your SilverStripe website is permitted to commnicate with Flickr.<br/>Get one at http://www.flickr.com/services/api/keys/apply/ and add the code to mysite/_config.php, e.g: <br/> FlickrService::setAPIKey('YOUR-KEY-HERE'); ", E_USER_ERROR);
+	 		user_error(_t('FlickrService.NOAPIKEY','You need to set the Flickr API key so that your SilverStripe website is permitted to commnicate with Flickr.<br/>Get one at http://www.flickr.com/services/api/keys/apply/ and add the code to mysite/_config.php, e.g: <br/> FlickrService::setAPIKey(\'YOUR-KEY-HERE\'); '), E_USER_ERROR);
 	 	}
 	 	else {
-	 		user_error("Flickr Service Error : $err_msg", E_USER_ERROR);
+	 		user_error(sprintf(_t('FlickrService.FLICKRSERVICEERROR',"Flickr Service Error : %s"),$err_msg), E_USER_ERROR);
 	 		}
 	 	}
 	 else {
@@ -199,10 +199,11 @@ class FlickrService_Photos extends ViewableData {
 	* @param pagination
 	*/
 	function Paginate($pagination){
-	$current_url = Controller::curr()->Link();
+		$current_url = Controller::curr()->Link();
 
-		foreach($pagination as $page)
-		$current_page = $page->getField('page');
+		foreach($pagination as $page) {
+			$current_page = $page->getField('page');
+		}
 		$last_page = $page->getField('pages');
 		$this->TotalPhotos = $page->getField('total');
 
@@ -210,14 +211,15 @@ class FlickrService_Photos extends ViewableData {
 		
 		if($current_page > 1){
 			$destPage = $current_page - 1;
-			$this->Pagelist = "<a href='{$current_url}page/$destPage' class='prev'>&lt; Previous</a>";
+			$this->Pagelist = "<a href='{$current_url}page/$destPage' class='prev'>&lt; ". _t('FlickrService.PREVIOUS','Previous') . "</a>";
 		}
 		
-		if($current_page < 6)
+		if($current_page < 6) {
 			$start = 0;
-		else
+		}
+		else {
 			$start = $current_page - 5;
-		
+		}
 		$end = $last_page < 10 ? $last_page : $start+10;
 		
 		for($i=$start; $i < $end ; $i++){
@@ -235,12 +237,10 @@ class FlickrService_Photos extends ViewableData {
 		
 		if ($current_page < $last_page){
 			$destPage = $current_page + 1;
-			$this->Pagelist .= "<a href='{$current_url}page/$destPage' class='next'>Next &gt;</a>";
+			$this->Pagelist .= "<a href='{$current_url}page/$destPage' class='next'>" . _t('FlickrService.NEXT','Next') . " &gt;</a>";
 		}
-			
-		
-		//Debug::show($pagination);
-		//return $pages;
+
+		// return $pages;
 	}
 	
 	/**
