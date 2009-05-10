@@ -1,0 +1,22 @@
+1. Place this directory in the root of your SilverStripe installation
+I.e. you will now have the following root folders
+
+assets
+mysite
+cms
+jsparty
+sapphire
+flickrservice
+
+2. Run /db/build/
+
+3.  Apply for an API key from http://www.flickr.com/services/api/keys/apply/ and add the following line to file - mysite/_config.php; 
+
+	FlickrService::setAPIKey('Your-API-KEY');
+
+4. The CMS should now have a new "FlickrGallery" page type.
+   Create a page and set the parameters correctly on 'Photos' tab
+
+5. If you have blog module installed, this you could use the FlickrWidget which comes with this module.
+
+6. Add these and visit your public site to reflect the changes

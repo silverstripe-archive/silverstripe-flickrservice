@@ -2,57 +2,32 @@
 Flickrservice Moudle
 ####################################################
 
-16 November 2007
+Maintainer Contact
+-----------------------------------------------
+Will Rossiter (wrossiter)
+<will (at) silverstripe (dot) com>
 
-# Maintainer Contact
-Matt Peel (Nickname: mpeel, mattSS)
-<matt (at) silverstripe (dot) com>
+Requirements
+-----------------------------------------------
 
-# Documentation
+Documentation
+-----------------------------------------------
 http://doc.silverstripe.com/doku.php?id=modules:flickrservice
 
-# Installation Instructions
-This is v0.2.0 of FlickrService module. This module is maintained by Lakshan Perera (lakshan AT silverstripe.com)
+Installation Instructions
+-----------------------------------------------
+See INSTALL
 
-To install :
+Usage Overview
+-----------------------------------------------
+See INSTALL
 
-1. Place this directory in the root of your SilverStripe installation
-I.e. you will now have the following root folders
-
-assets
-mysite
-cms
-jsparty
-sapphire
-flickrservice
-
-2. Run /db/build/
-
-3.  Apply for an API key from http://www.flickr.com/services/api/keys/apply/ and add the following line to file - mysite/_config.php; 
-
-	FlickrService::setAPIKey('Your-API-KEY');
-
-4. The CMS should now have a new "FlickrGallery" page type.
-   Create a page and set the parameters correctly on 'Photos' tab
-
-5. If you have blog module installed, this you could use the FlickrWidget which comes with this module.
-
-6. Add these and visit your public site to reflect the changes
-
-:: NOTE ::
-If you are still using deprecated all-in-one mashups module, please remove it before installing this. All other functionalities which were available in mashups module are now available in separate modules. Check - YoutubeService, MetablogService.
-
-Add the issues, bugs, contributions to the module on open.silverstripe.com (create a new ticket under this module).
-
-If you require any support on usage of the module ask it through the forum - http://www.silverstripe.com/extending-hacking-silverstripe-forum/
+Known issues
+-----------------------------------------------
+If you are still using deprecated all-in-one mashups module, please remove it before installing this. 
+All other functionalities which were available in mashups module are now available in separate modules. 
+Check - YoutubeService, MetablogService.
 
 
-+----------------------------------+
-|       FINDING THE GROUP ID       |
-+----------------------------------+
-If you want to find the groups ID, browse to the group page (e.g. http://www.flickr.com/groups/facesinplaces).
-- If you're not yet part of the group, right click the 'Join this group' text on the right and select 'Properties'.
-- Otherwise, if you're a part of the group already, right click the 'Invite' link at the top (just under the group name) and select 'Properties'.
-
-- Copy the part out of the Address/URL field after the last '=' sign. (It will be something like 377682@N20)
-- Paste this into the Group ID field in the CMS.
+Future works
+-----------------------------------------------
