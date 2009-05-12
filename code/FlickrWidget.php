@@ -21,6 +21,7 @@ class FlickrWidget extends Widget {
 		$title = _t('FlickrWidget.PHOTOS','Photos');
 		$cmsTitle = _t('FlickrWidget.FLICKRPHOTOS','Flickr Photos');
 		$description = _t('FlickrWidget.FLICKRPHOTOSDESCRIPTION','Display your Flickr photos.');
+		parent::__construct();
 	}
 	
 	function Photos() {
