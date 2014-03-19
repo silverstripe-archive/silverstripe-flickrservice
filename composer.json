@@ -1,5 +1,5 @@
 {
-	"name": "silverstripe-labs/flickrservice ",
+	"name": "silverstripe-labs/flickrservice",
 	"description": "Displays a gallery of photos uploaded to Flickr, filtering by Flickr user or by tag",
 	"type": "silverstripe-module",
 	"keywords": ["silverstripe-labs", "flickrservice", "gallery"],
